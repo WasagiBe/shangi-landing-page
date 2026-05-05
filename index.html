@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SHANGI – Fun For Kids</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Heebo:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green:   #8DC63F;
+      --pink:    #EE4D8B;
+      --sky:     #29B9E7;
+      --navy:    #2B4EA0;
+      --orange:  #F7941D;
+      --purple:  #662D8C;
+      --bg:      #F9FAFB;
+      --white:   #FFFFFF;
+      --text:    #1A1A2E;
+      --muted:   #6B7280;
+      --border:  #E5E7EB;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Heebo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* ── LOGO ── */
+    .logo-wrap {
+      font-family: 'Fredoka', cursive;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+    .logo-s  { color: var(--pink); }
+    .logo-h  { color: var(--sky); }
+    .logo-a  { color: var(--navy); }
+    .logo-n  { color: var(--orange); }
+    .logo-g  { color: var(--pink); }
+    .logo-i  { color: var(--sky); }
+    .logo-tagline {
+      background: var(--sky);
+      color: white;
+      font-family: 'Fredoka', cursive;
+      font-size: 0.52rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      padding: 0.2rem 0.85rem;
+      border-radius: 2px;
+      border: 1.5px dashed rgba(255,255,255,0.55);
+      display: inline-block;
+      margin-top: 0.1rem;
+    }
+
+    /* ── NAV ── */
+    .nav-link {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      padding: 0.35rem 0;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 0; height: 2px;
+      background: var(--pink);
+      border-radius: 2px;
+      transition: width 0.25s;
+    }
+    .nav-link:hover { color: var(--text); }
+    .nav-link:hover::after { width: 100%; }
+
+    /* ── HERO CROSSFADE BACKGROUND ── */
+    .hero-section {
+      position: relative;
+      overflow: hidden;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-bg-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: opacity 1.4s ease-in-out;
+    }
+    .hero-bg-slide.active { opacity: 1; }
+    .hero-bg-slide.inactive { opacity: 0; }
+
+    /* Blur + transparency overlay so text stays readable */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.60);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 1;
+    }
+    /* Extra soft gradient overlay for depth */
+    .hero-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(255,249,240,0.55) 0%,
+        rgba(240,248,255,0.35) 50%,
+        rgba(255,240,247,0.55) 100%
+      );
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* ── "Play with your food" headline ── */
+    .hero-headline {
+      font-family: 'Fredoka', cursive;
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: 0.01em;
+    }
+    .hw1 { color: var(--pink); }
+    .hw2 { color: var(--navy); }
+    .hw3 { color: var(--orange); }
+    .hw4 { color: var(--green); }
+
+    /* ── CTA BUTTONS ── */
+    .btn-cta {
+      background: linear-gradient(135deg, var(--pink), var(--orange));
+      color: white;
+      font-family: 'Fredoka', cursive;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 0.85rem 2.4rem;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 6px 24px rgba(238,77,139,0.35);
+    }
+    .btn-cta:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 32px rgba(238,77,139,0.45);
+    }
+    .btn-secondary {
+      background: white;
+      color: var(--navy);
+      font-family: 'Fredoka', cursive;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.82rem 1.8rem;
+      border-radius: 100px;
+      border: 2px solid var(--border);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover {
+      border-color: var(--sky);
+      transform: translateY(-2px);
+    }
+
+    /* ── STATS ── */
+    .stat-num {
+      font-family: 'Fredoka', cursive;
+      font-size: 1.7rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 0.2rem;
+    }
+
+    /* ── CATEGORY PILLS ── */
+    .cat-pill {
+      background: white;
+      color: var(--text);
+      font-family: 'Fredoka', cursive;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.5rem 1.3rem;
+      border-radius: 100px;
+      border: 2px solid var(--border);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .cat-pill:hover, .cat-pill.active {
+      color: white;
+      border-color: transparent;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+    .cat-pill.c1.active, .cat-pill.c1:hover { background: var(--pink); }
+    .cat-pill.c2.active, .cat-pill.c2:hover { background: var(--sky); }
+    .cat-pill.c3.active, .cat-pill.c3:hover { background: var(--orange); }
+    .cat-pill.c4.active, .cat-pill.c4:hover { background: var(--green); }
+    .cat-pill.c5.active, .cat-pill.c5:hover { background: var(--navy); }
+
+    /* ── PRODUCT CARDS ── */
+    .product-card {
+      background: white;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      position: relative;
+      text-decoration: none;
+      color: var(--text);
+      display: block;
+      border: 1px solid var(--border);
+    }
+    .product-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+    }
+    .product-card:hover .card-cta {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card-img-wrap {
+      width: 100%;
+      aspect-ratio: 3/4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-img-bg-1 { background: linear-gradient(145deg,#FFE8F3,#FFD0E8); }
+    .card-img-bg-2 { background: linear-gradient(145deg,#E0F5FF,#C5EDFF); }
+    .card-img-bg-3 { background: linear-gradient(145deg,#FFF3E0,#FFE5C0); }
+    .card-img-bg-4 { background: linear-gradient(145deg,#F0FFE0,#DCFFC0); }
+    .card-img-bg-5 { background: linear-gradient(145deg,#EDE8FF,#DDD0FF); }
+    .card-img-bg-6 { background: linear-gradient(145deg,#FFE8E8,#FFC5C5); }
+
+    .card-img-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      opacity: 0.45;
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      font-family: 'Fredoka', cursive;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      padding: 0.22rem 0.65rem;
+      border-radius: 100px;
+      color: white;
+    }
+
+    .card-cta {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 0.75rem;
+      right: 0.75rem;
+      background: rgba(26,26,46,0.85);
+      color: white;
+      font-family: 'Fredoka', cursive;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-align: center;
+      padding: 0.55rem;
+      border-radius: 0.75rem;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.25s, transform 0.25s;
+      backdrop-filter: blur(6px);
+    }
+
+    .card-body { padding: 0.85rem 1rem 1rem; }
+    .card-name {
+      font-family: 'Fredoka', cursive;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+    }
+    .card-sub {
+      font-size: 0.7rem;
+      color: var(--muted);
+      font-weight: 400;
+      margin-bottom: 0.45rem;
+    }
+    .card-price {
+      font-family: 'Fredoka', cursive;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--pink);
+    }
+    .card-price-old {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-decoration: line-through;
+      margin-right: 0.3rem;
+    }
+    .stars { color: var(--orange); font-size: 0.65rem; letter-spacing: -1px; margin-bottom: 0.3rem; }
+
+    /* ── SECTION LABEL ── */
+    .section-eyebrow {
+      font-family: 'Fredoka', cursive;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: white;
+      background: var(--sky);
+      padding: 0.28rem 1rem;
+      border-radius: 100px;
+      display: inline-block;
+    }
+    .section-title {
+      font-family: 'Fredoka', cursive;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* ── TRUST BAR ── */
+    .trust-icon-wrap {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin: 0 auto 0.6rem;
+    }
+    .trust-label {
+      font-family: 'Fredoka', cursive;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      text-align: center;
+    }
+    .trust-sub { font-size: 0.68rem; color: var(--muted); text-align: center; }
+
+    /* ── PAGE REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      animation: revUp 0.65s ease forwards;
+    }
+    @keyframes revUp { to { opacity:1; transform:translateY(0); } }
+    .d1{animation-delay:.05s} .d2{animation-delay:.15s}
+    .d3{animation-delay:.25s} .d4{animation-delay:.35s}
+    .d5{animation-delay:.45s} .d6{animation-delay:.55s}
+
+    .cats-scroll { -ms-overflow-style:none; scrollbar-width:none; }
+    .cats-scroll::-webkit-scrollbar { display:none; }
+
+    /* floating dots */
+    .dot-float {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.2;
+      animation: floatDot 5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 3;
+    }
+    @keyframes floatDot {
+      0%,100%{transform:translateY(0) scale(1);}
+      50%{transform:translateY(-16px) scale(1.08);}
+    }
+
+    /* badge pulse */
+    .pulse-green {
+      animation: pulseG 2s ease-in-out infinite;
+    }
+    @keyframes pulseG {
+      0%,100%{box-shadow:0 0 0 0 rgba(141,198,63,.45);}
+      50%{box-shadow:0 0 0 10px rgba(141,198,63,0);}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════ HEADER ════════ -->
+<header class="bg-white sticky top-0 z-50" style="border-bottom:1px solid var(--border); box-shadow:0 2px 16px rgba(0,0,0,.06);">
+  <div class="max-w-6xl mx-auto px-6 py-3">
+    <div class="flex items-center justify-between">
+
+      <!-- Nav right -->
+      <nav class="hidden md:flex items-center gap-7">
+        <a href="#" class="nav-link">חנות</a>
+        <a href="#" class="nav-link">קולקציות</a>
+        <a href="#" class="nav-link">אודות</a>
+        <a href="#" class="nav-link">צור קשר</a>
+      </nav>
+
+      <!-- Logo centered -->
+      <div class="absolute left-1/2 -translate-x-1/2 text-center">
+        <img src="the_new_logo.jpg" alt="SHANGI – Fun For Kids" style="height:52px;width:auto;object-fit:contain;" />
+      </div>
+
+      <!-- Icons right -->
+      <div class="flex items-center gap-4">
+        <button aria-label="חיפוש" style="color:var(--muted);" class="hover:opacity-70 transition-opacity">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+        <button aria-label="סל קניות" style="color:var(--muted);" class="hover:opacity-70 transition-opacity relative">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span style="position:absolute;top:-6px;left:-6px;background:var(--pink);color:white;font-size:.55rem;font-weight:800;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;">3</span>
+        </button>
+        <button class="md:hidden" style="color:var(--muted);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+
+<!-- ════════ HERO ════════ -->
+<section class="hero-section" id="hero">
+
+  <!-- Background image 1 (pasta/dough toys) -->
+  <div class="hero-bg-slide active" id="slide1" style="background-image:url('main_page_1.JPG');"></div>
+  <!-- Background image 2 (felt sandwich) -->
+  <div class="hero-bg-slide inactive" id="slide2" style="background-image:url('main_page_2.JPG');"></div>
+
+  <!-- Blur + white transparency overlay -->
+  <div class="hero-overlay"></div>
+  <div class="hero-gradient"></div>
+
+  <!-- Floating decorative dots -->
+  <div class="dot-float" style="width:72px;height:72px;background:var(--pink);top:9%;right:7%;animation-delay:0s;"></div>
+  <div class="dot-float" style="width:44px;height:44px;background:var(--sky);top:22%;left:8%;animation-delay:1.5s;"></div>
+  <div class="dot-float" style="width:30px;height:30px;background:var(--orange);bottom:14%;right:14%;animation-delay:0.8s;"></div>
+  <div class="dot-float" style="width:55px;height:55px;background:var(--green);bottom:12%;left:6%;animation-delay:2s;"></div>
+
+  <div class="hero-content max-w-6xl mx-auto px-6 py-20 w-full">
+    <div class="flex flex-col md:flex-row items-center gap-10">
+
+      <!-- Text block -->
+      <div class="flex-1 text-right">
+
+        <div class="reveal d1">
+          <span class="pulse-green" style="background:var(--green);color:white;font-family:'Fredoka',cursive;font-size:.78rem;font-weight:600;letter-spacing:.12em;padding:.42rem 1.2rem;border-radius:100px;display:inline-block;">✨ חדש בחנות – קיץ 2025</span>
+        </div>
+
+        <!-- "Play with your food" in big Fredoka multicolor -->
+        <h1 class="hero-headline mt-5 mb-5 reveal d2" style="font-size:clamp(3rem,6.5vw,5.4rem);">
+          <span class="hw1">Play</span> <span class="hw2">with</span><br>
+          <span class="hw3">your</span> <span class="hw4">food</span>
+        </h1>
+
+        <p class="reveal d3" style="font-size:1rem;color:var(--muted);line-height:1.8;font-weight:400;max-width:420px;margin-right:0;margin-left:auto;margin-bottom:2rem;">
+          צעצועי בד ורגש. ביגוד ילדים שמשחק, חוקר ומחייך. מעוצב לאהבה ולקסם של ילדות.
+        </p>
+
+        <div class="flex flex-wrap gap-3 justify-end reveal d4">
+          <a href="#products" class="btn-cta">גלי את הקולקציה 🛍️</a>
+          <a href="#" class="btn-secondary">למד עוד</a>
+        </div>
+
+        <!-- Stats row -->
+        <div class="flex gap-8 justify-end mt-10 reveal d5">
+          <div class="text-center">
+            <div class="stat-num" style="color:var(--pink);">4.9 ⭐</div>
+            <div class="stat-label">דירוג ממוצע</div>
+          </div>
+          <div style="width:1px;background:var(--border);"></div>
+          <div class="text-center">
+            <div class="stat-num" style="color:var(--sky);">+12K</div>
+            <div class="stat-label">לקוחות מרוצים</div>
+          </div>
+          <div style="width:1px;background:var(--border);"></div>
+          <div class="text-center">
+            <div class="stat-num" style="color:var(--orange);">+500</div>
+            <div class="stat-label">מוצרים</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right decorative pill (image preview) -->
+      <div class="flex-shrink-0 hidden md:block reveal d3" style="animation-delay:.2s;">
+        <div style="width:240px;height:320px;border-radius:2rem;overflow:hidden;box-shadow:0 24px 60px rgba(238,77,139,0.18),0 4px 20px rgba(41,185,231,0.12);position:relative;">
+          <!-- small looping preview of the two product images -->
+          <div id="pillSlide1" style="position:absolute;inset:0;background-image:url('main_page_1.JPG');background-size:cover;background-position:center;transition:opacity 1.4s ease-in-out;opacity:1;"></div>
+          <div id="pillSlide2" style="position:absolute;inset:0;background-image:url('main_page_2.JPG');background-size:cover;background-position:center;transition:opacity 1.4s ease-in-out;opacity:0;"></div>
+          <!-- small overlay label -->
+          <div style="position:absolute;bottom:1rem;right:0;left:0;text-align:center;">
+            <span style="background:rgba(255,255,255,.82);backdrop-filter:blur(8px);font-family:'Fredoka',cursive;font-size:.72rem;font-weight:600;letter-spacing:.08em;padding:.3rem .9rem;border-radius:100px;color:var(--navy);">🎨 סט משחק</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════ CATEGORY PILLS ════════ -->
+<div style="background:white;border-bottom:1px solid var(--border);padding:1.1rem 0;position:sticky;top:65px;z-index:40;box-shadow:0 2px 12px rgba(0,0,0,.04);">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="flex gap-3 overflow-x-auto cats-scroll pb-1" style="justify-content:flex-end;">
+      <button class="cat-pill c1 active" onclick="setActive(this)">🎯 הכל</button>
+      <button class="cat-pill c2" onclick="setActive(this)">🍔 אוכל מרגיש</button>
+      <button class="cat-pill c3" onclick="setActive(this)">👕 ביגוד</button>
+      <button class="cat-pill c4" onclick="setActive(this)">🧸 צעצועים</button>
+      <button class="cat-pill c5" onclick="setActive(this)">🎒 תיקים</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════ NEW ARRIVALS GRID ════════ -->
+<section id="products" class="max-w-6xl mx-auto px-6 py-16">
+
+  <!-- Section header -->
+  <div class="flex items-end justify-between mb-10">
+    <a href="#" style="font-size:.82rem;color:var(--sky);font-weight:600;text-decoration:none;font-family:'Fredoka',cursive;" class="hover:opacity-70">← כל המוצרים</a>
+    <div class="text-right">
+      <span class="section-eyebrow mb-2 block">NEW ARRIVALS</span>
+      <h2 class="section-title">מוצרים חדשים 🎁</h2>
+    </div>
+  </div>
+
+  <!-- Product grid – 2 col mobile / 3 tablet / 4 desktop -->
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+
+    <!-- Cards 1–8 (placeholders ready for real product images + copy) -->
+
+    <!-- Card 1 -->
+    <a href="#product-detail" class="product-card reveal d1">
+      <div class="card-img-wrap card-img-bg-1">
+        <div class="card-img-placeholder">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--pink)" stroke-width="1.1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span style="font-size:.6rem;color:var(--muted);font-family:'Fredoka',cursive;">תמונת מוצר</span>
+        </div>
+        <span class="card-badge" style="background:var(--pink);">חדש</span>
+        <div class="card-cta">הוסף לסל +</div>
+      </div>
+      <div class="card-body">
+        <div class="stars">★★★★★</div>
+        <div class="card-name">שם מוצר כאן</div>
+        <div class="card-sub">גילאי 3–6</div>
+        <div class="card-price">₪129</div>
+      </div>
+    </a>
+
+    <!-- Card 2 -->
+    <a href="#product-detail" class="product-card reveal d2">
+      <div class="card-img-wrap card-img-bg-2">
+        <div class="card-img-placeholder">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="1.1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span style="font-size:.6rem;color:var(--muted);font-family:'Fredoka',cursive;">תמונת מוצר</span>
+        </div>
+        <span class="card-badge" style="background:var(--orange);">מבצע</span>
+        <div class="card-cta">הוסף לסל +</div>
+      </div>
+      <div class="card-body">
+        <div class="stars">★★★★☆</div>
+        <div class="card-name">שם מוצר כאן</div>
+        <div class="card-sub">גילאי 1–4</div>
+        <div style="display:flex;align-items:center;gap:4px;">
+          <span class="card-price">₪89</span>
+          <span class="card-price-old">₪120</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 3 – featured -->
+    <a href="#product-detail" class="product-card reveal d3" style="box-shadow:0 0 0 2px var(--pink),0 8px 24px rgba(238,77,139,.18);">
+      <div class="card-img-wrap card-img-bg-3">
+        <div class="card-img-placeholder">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span style="font-size:.6rem;color:var(--muted);font-family:'Fredoka',cursive;">תמונת מוצר</span>
+        </div>
+        <span class="card-badge" style="background:var(--purple);">⭐ הכי נמכר</span>
+        <div class="card-cta">הוסף לסל +</div>
+      </div>
+      <div class="card-body">
+        <div class="stars">★★★★★</div>
+        <div class="card-name">שם מוצר כאן</div>
+        <div class="card-sub">גילאי 2–5</div>
+        <div class="card-price">₪199</div>
+      </div>
+    </a>
+
+    <!-- Card 4 -->
+    <a href="#product-detail" class="product-card reveal d4">
+      <div class="card-img-wrap card-img-bg-4">
+        <div class="card-img-placeholder">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span style="font-size:.6rem;color:var(--muted);font-family:'Fredoka',cursive;">תמונת מוצר</span>
+        </div>
+        <span class="card-badge" style="background:var(--green);">מוגבל</span>
+        <div class="card-cta">הוסף לסל +</div>
+      </div>
+      <div class="card-body">
+        <div class="stars">★★★★☆</div>
+        <div class="card-name">שם מוצר כאן</div>
+        <div class="card-sub">גילאי 5–9</div>
+        <div style="display:flex;align-items:center;gap:4px;">
+          <span class="card-price">₪149</span>
+          <span class="card-price-old">₪180</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 5 -->
+    <a href="#product-detail" class="product-card reveal d1">
+      <div class="card-img-wrap card-img-bg-5">
+        <div class="card-img-placeholder">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="1.1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span style="font-size:.6rem;color:var(--muted);font-family:'Fredoka',cursive;">תמונת מוצר</span>
+        </div>
+        <span class="card-badge" style="background:var(--navy);">חדש</span>
+        <div class="card-cta">הוסף לסל +</div>
+      </div>
+      <div class="card-body">
+        <div class="stars">★★★★★</div>
+        <div class="card-name">שם מוצר כאן</div>
+        <div class="card-sub">גילאי 3–7</div>
+        <div class="card-price">₪109</div>
+      </div>
+    </a>
+
+    <!-- Card 6 -->
+    <a href="#product-detail" class="product-card reveal d2">
+      <div class="card-img-wrap card-img-bg-6">
+        <div class="card-img-placeholder">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--pink)" stroke-width="1.1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span style="font-size:.6rem;color:var(--muted);font-family:'Fredoka',cursive;">תמונת מוצר</span>
+        </div>
+        <span class="card-badge" style="background:var(--sky);">פופולרי</span>
+        <div class="card-cta">הוסף לסל +</div>
+      </div>
+      <div class="card-body">
+        <div class="stars">★★★★★</div>
+        <div class="card-name">שם מוצר כאן</div>
+        <div class="card-sub">גילאי 2–6</div>
+        <div class="card-price">₪165</div>
+      </div>
+    </a>
+
+    <!-- Card 7 -->
+    <a href="#product-detail" class="product-card reveal d3">
+      <div class="card-img-wrap card-img-bg-1">
+        <div class="card-img-placeholder">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span style="font-size:.6rem;color:var(--muted);font-family:'Fredoka',cursive;">תמונת מוצר</span>
+        </div>
+        <span class="card-badge" style="background:var(--orange);">מבצע</span>
+        <div class="card-cta">הוסף לסל +</div>
+      </div>
+      <div class="card-body">
+        <div class="stars">★★★★☆</div>
+        <div class="card-name">שם מוצר כאן</div>
+        <div class="card-sub">גילאי 4–8</div>
+        <div style="display:flex;align-items:center;gap:4px;">
+          <span class="card-price">₪79</span>
+          <span class="card-price-old">₪110</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 8 -->
+    <a href="#product-detail" class="product-card reveal d4">
+      <div class="card-img-wrap card-img-bg-3">
+        <div class="card-img-placeholder">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span style="font-size:.6rem;color:var(--muted);font-family:'Fredoka',cursive;">תמונת מוצר</span>
+        </div>
+        <span class="card-badge" style="background:var(--green);">חדש</span>
+        <div class="card-cta">הוסף לסל +</div>
+      </div>
+      <div class="card-body">
+        <div class="stars">★★★★★</div>
+        <div class="card-name">שם מוצר כאן</div>
+        <div class="card-sub">גילאי 1–3</div>
+        <div class="card-price">₪219</div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- View all -->
+  <div class="text-center mt-12">
+    <a href="#" class="btn-cta" style="font-size:.9rem;padding:.8rem 2.2rem;">לכל המוצרים ←</a>
+  </div>
+</section>
+
+
+<!-- ════════ TRUST BAR ════════ -->
+<section style="background:white;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3rem 1.5rem;">
+  <div class="max-w-5xl mx-auto">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div class="text-center">
+        <div class="trust-icon-wrap" style="background:#FFE8F3;">🚚</div>
+        <div class="trust-label">משלוח חינם</div>
+        <div class="trust-sub">מעל ₪200</div>
+      </div>
+      <div class="text-center">
+        <div class="trust-icon-wrap" style="background:#E0F5FF;">🔄</div>
+        <div class="trust-label">החזרה קלה</div>
+        <div class="trust-sub">תוך 30 יום</div>
+      </div>
+      <div class="text-center">
+        <div class="trust-icon-wrap" style="background:#FFF3E0;">🛡️</div>
+        <div class="trust-label">בטיחות לילד</div>
+        <div class="trust-sub">חומרים מאושרים</div>
+      </div>
+      <div class="text-center">
+        <div class="trust-icon-wrap" style="background:#F0FFE0;">💬</div>
+        <div class="trust-label">תמיכה 24/7</div>
+        <div class="trust-sub">תמיד כאן בשבילך</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════ FOOTER ════════ -->
+<footer style="background:var(--navy);padding:3rem 1.5rem;">
+  <div class="max-w-6xl mx-auto text-center">
+    <div class="logo-wrap" style="font-size:2.2rem;display:block;margin-bottom:.3rem;">
+      <span class="logo-s">S</span><span class="logo-h">H</span><span class="logo-a">A</span><span class="logo-n">N</span><span class="logo-g">G</span><span class="logo-i">I</span>
+    </div>
+    <div class="logo-tagline" style="margin-bottom:1.5rem;">FUN FOR KIDS</div>
+    <div class="flex flex-wrap justify-center gap-8 mb-6">
+      <a href="#" style="color:rgba(255,255,255,.6);font-size:.82rem;text-decoration:none;font-family:'Fredoka',cursive;" class="hover:text-white transition-colors">חנות</a>
+      <a href="#" style="color:rgba(255,255,255,.6);font-size:.82rem;text-decoration:none;font-family:'Fredoka',cursive;" class="hover:text-white transition-colors">אודות</a>
+      <a href="#" style="color:rgba(255,255,255,.6);font-size:.82rem;text-decoration:none;font-family:'Fredoka',cursive;" class="hover:text-white transition-colors">קולקציות</a>
+      <a href="#" style="color:rgba(255,255,255,.6);font-size:.82rem;text-decoration:none;font-family:'Fredoka',cursive;" class="hover:text-white transition-colors">צור קשר</a>
+    </div>
+    <p style="font-size:.7rem;color:rgba(255,255,255,.3);letter-spacing:.08em;">© 2025 SHANGI – Fun For Kids · כל הזכויות שמורות</p>
+  </div>
+</footer>
+
+
+<script>
+  // ── Hero crossfade slideshow ──
+  const slides = [
+    { bg: document.getElementById('slide1'), pill: document.getElementById('pillSlide1') },
+    { bg: document.getElementById('slide2'), pill: document.getElementById('pillSlide2') }
+  ];
+  let current = 0;
+  setInterval(() => {
+    slides[current].bg.classList.remove('active'); slides[current].bg.classList.add('inactive');
+    slides[current].pill.style.opacity = '0';
+    current = (current + 1) % slides.length;
+    slides[current].bg.classList.remove('inactive'); slides[current].bg.classList.add('active');
+    slides[current].pill.style.opacity = '1';
+  }, 4000);
+
+  // ── Category pill active state ──
+  function setActive(el) {
+    document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+  }
+</script>
+</body>
+</html>
