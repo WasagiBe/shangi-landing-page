@@ -4,22 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SHANGI · Play with your food</title>
-  <link rel="stylesheet" href="../../colors_and_type.css">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap');
-    :root {
-      --page-bg: #FFFFFF;
-      --card-sky:    #DDF2FB;
-      --card-pink:   #FBDDE9;
-      --card-mint:   #E5F4D4;
-      --card-lilac:  #E5DDF5;
-      --card-cream:  #FAEDD3;
-      --card-peach:  #FDE2CF;
-    }
-    html, body { background: #EDEFF2; color: var(--ink); -webkit-font-smoothing: antialiased; }
 
-    /* ============= MOBILE FRAME ============= */
+  <!-- Google Fonts: Assistant -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --shangi-pink:    #EE4D8B;
+      --shangi-sky:     #29B9E7;
+      --shangi-navy:    #2B4EA0;
+      --shangi-orange:  #F7941D;
+
+      --tint-blueprint: #C9E5F1;
+
+      --ink:      #1A1A2E;
+      --ink-2:    #3D3D52;
+      --ink-3:    #6B7280;
+      --rule:     #E8DFC9;
+
+      --page-bg:   #FFFFFF;
+      --card-sky:  #DDF2FB;
+      --card-pink: #FBDDE9;
+      --card-lilac:#E5DDF5;
+      --card-peach:#FDE2CF;
+
+      --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html, body {
+      background: #EDEFF2;
+      color: var(--ink);
+      font-family: 'Assistant', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* ============= FRAME ============= */
     .frame {
       width: 100%;
       max-width: 430px;
@@ -43,18 +67,11 @@
     }
     .nav-left  { justify-self: start; display: flex; gap: 4px; }
     .nav-right { justify-self: end;   display: flex; gap: 4px; }
-    .brand {
-      justify-self: center;
-      display: block;
-      text-decoration: none;
-    }
+    .brand { justify-self: center; display: block; text-decoration: none; }
     .brand img {
       height: 147px; width: auto;
       display: block;
       image-rendering: -webkit-optimize-contrast;
-    }
-    .nav-icons {
-      display: flex; align-items: center; gap: 6px;
     }
     .icon-btn {
       background: transparent; border: 0; cursor: pointer; color: var(--ink);
@@ -69,7 +86,7 @@
       top: 4px; left: 4px;
       background: var(--shangi-pink);
       color: white;
-      font: 700 9.5px/1 var(--font-body);
+      font: 700 9.5px/1 'Assistant', sans-serif;
       width: 16px; height: 16px;
       border-radius: 50%;
       display: grid; place-items: center;
@@ -85,10 +102,7 @@
       aspect-ratio: 3 / 4.1;
       background: var(--tint-blueprint);
     }
-    .hero .bg {
-      position: absolute; inset: 0;
-      overflow: hidden;
-    }
+    .hero .bg { position: absolute; inset: 0; overflow: hidden; }
     .hero .bg .slide {
       position: absolute; inset: 0;
       background-size: cover;
@@ -98,14 +112,9 @@
       transition: opacity 1.4s ease-in-out;
     }
     .hero .bg .slide.active { opacity: 1; }
-    .hero .bg .slide.s1 { background-image: url('../../assets/main_page_2.jpg'); }
-    .hero .bg .slide.s2 { background-image: url('../../assets/main_page_3.jpg'); }
-    .hero .bg .slide.s3 { background-image: url('../../assets/main_page_1.jpg'); }
-    .hero .bg::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: rgba(255,255,255,0.10);
-    }
+    .hero .bg .slide.s1 { background-image: url('Sand_1.JPG'); }
+    .hero .bg .slide.s2 { background-image: url('Pasta2.JPG'); }
+    .hero .bg .slide.s3 { background-image: url('photo-donuts.jpg'); }
     .hero .scrim {
       position: absolute; inset: 0;
       background:
@@ -128,128 +137,14 @@
       letter-spacing: -0.02em;
       color: var(--shangi-pink);
       text-shadow:
-        0 0 calc(22px * var(--title-shadow, 1)) rgba(255,255,255, calc(0.55 * var(--title-shadow, 1))),
-        0 1px 0 rgba(255,255,255, calc(0.5 * var(--title-shadow, 1))),
-        0 calc(6px * var(--title-shadow, 1)) calc(18px * var(--title-shadow, 1)) rgba(43,43,64, calc(0.20 * var(--title-shadow, 1)));
-      max-width: 100%;
-    }
-    /* gentle drop shadow on detail-page title — tracks same tweak */
-    .detail-title {
-      text-shadow:
-        0 calc(2px * var(--title-shadow, 1)) calc(8px * var(--title-shadow, 1)) rgba(43, 43, 64, calc(0.12 * var(--title-shadow, 1)));
-    }
-    /* gentle drop shadow on card titles too */
-    .product .name {
-      text-shadow:
-        0 calc(1px * var(--title-shadow, 1)) calc(3px * var(--title-shadow, 1)) rgba(43, 43, 64, calc(0.10 * var(--title-shadow, 1)));
-    }
-
-    /* ============= TWEAKS PANEL ============= */
-    #tweaksPanel {
-      position: fixed;
-      bottom: 16px; right: 16px;
-      z-index: 200;
-      width: 260px;
-      background: rgba(255,255,255,0.98);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--rule);
-      border-radius: 18px;
-      box-shadow: 0 14px 36px rgba(43,43,64,0.18);
-      padding: 14px 14px 12px;
-      font-family: var(--font-body);
-      direction: ltr;
-      display: none;
-    }
-    #tweaksPanel.open { display: block; }
-    .tw-head {
-      display: flex; align-items: center; justify-content: space-between;
-      padding-bottom: 10px; margin-bottom: 10px;
-      border-bottom: 1px solid var(--rule);
-    }
-    .tw-title {
-      font-family: var(--font-brand);
-      font-weight: 600;
-      font-size: 13px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink);
-    }
-    .tw-close {
-      background: transparent; border: 0; cursor: pointer;
-      width: 24px; height: 24px;
-      color: var(--ink-3);
-      font-size: 18px; line-height: 1;
-    }
-    .tw-close:hover { color: var(--ink); }
-    .tw-row { margin-bottom: 10px; }
-    .tw-label {
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 11.5px;
-      font-weight: 500;
-      color: var(--ink-2);
-      margin-bottom: 6px;
-    }
-    .tw-label .tw-val {
-      font-family: var(--font-mono, monospace);
-      font-size: 10.5px;
-      color: var(--shangi-pink);
-      font-weight: 600;
-    }
-    .tw-row input[type="range"] {
-      width: 100%; appearance: none;
-      background: transparent;
-    }
-    .tw-row input[type="range"]::-webkit-slider-runnable-track {
-      height: 4px; background: var(--rule); border-radius: 2px;
-    }
-    .tw-row input[type="range"]::-webkit-slider-thumb {
-      appearance: none; width: 16px; height: 16px;
-      background: var(--shangi-pink);
-      border-radius: 50%;
-      margin-top: -6px;
-      box-shadow: 0 2px 6px rgba(238,77,139,0.4);
+        0 0 22px rgba(255,255,255,0.55),
+        0 1px 0 rgba(255,255,255,0.5),
+        0 6px 18px rgba(43,43,64,0.20);
     }
     .hero h1 span { display: block; }
     .hero h1 span + span { margin-top: 0.04em; }
 
-    .hero-bottom {
-      display: flex; justify-content: space-between; align-items: flex-end;
-    }
-    .shop-btn {
-      background: var(--shangi-sky);
-      color: var(--ink);
-      font-family: var(--font-brand);
-      font-weight: 600;
-      font-size: 18px;
-      padding: 16px 28px;
-      border: 0;
-      border-radius: 999px;
-      cursor: pointer;
-      box-shadow: 0 8px 22px rgba(41,185,231,0.35);
-      text-decoration: none;
-      display: inline-flex; align-items: center; gap: 8px;
-      transition: transform 150ms var(--ease-soft);
-    }
-    .shop-btn:hover { transform: translateY(-2px); }
-    .shop-btn::after {
-      content: '→';
-      font-size: 18px;
-      transform: translateY(-1px);
-    }
-
-    .hero-meta {
-      direction: rtl;
-      text-align: right;
-      color: var(--ink);
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(6px);
-      padding: 10px 14px;
-      border-radius: 14px;
-      font: 500 11px/1.4 var(--font-body);
-    }
-    .hero-meta strong { font-weight: 700; color: var(--shangi-pink); }
-
-    /* ============= SECTION HEAD (lozenge) ============= */
+    /* ============= SECTION HEAD ============= */
     .sec-head {
       padding: 28px 18px 18px;
       display: flex; align-items: center; justify-content: space-between;
@@ -271,16 +166,15 @@
       flex: none;
     }
     .sec-pill h2 {
-      font-family: var(--font-brand);
+      font-family: 'Assistant', sans-serif;
       font-weight: 600;
       font-size: 18px;
       color: var(--ink);
       line-height: 1;
-      letter-spacing: 0;
       margin: 0;
     }
     .sec-link {
-      font: 600 12.5px/1 var(--font-body);
+      font: 600 12.5px/1 'Assistant', sans-serif;
       color: var(--shangi-sky);
       text-decoration: none;
       white-space: nowrap;
@@ -301,44 +195,26 @@
       box-shadow: 0 6px 18px rgba(43,78,160,0.06);
       display: flex; flex-direction: column;
       text-decoration: none; color: inherit;
+      cursor: pointer;
     }
     .product .photo {
       position: relative;
       aspect-ratio: 1 / 1.05;
-      display: grid; place-items: center;
       overflow: hidden;
     }
-    .product.tone-sky    .photo { background: var(--card-sky); }
-    .product.tone-pink   .photo { background: var(--card-pink); }
-    .product.tone-mint   .photo { background: var(--card-mint); }
-    .product.tone-lilac  .photo { background: var(--card-lilac); }
-
+    .product.tone-sky   .photo { background: var(--card-sky); }
+    .product.tone-pink  .photo { background: var(--card-pink); }
+    .product.tone-lilac .photo { background: var(--card-lilac); }
     .product .photo img {
       width: 100%; height: 100%;
       object-fit: cover;
-      mix-blend-mode: multiply;
-    }
-    .product .photo.placeholder::before {
-      content: '';
-      width: 56px; height: 48px;
-      border: 1.6px solid rgba(0,0,0,0.18);
-      border-radius: 8px;
-      background:
-        radial-gradient(circle at 32% 38%, rgba(0,0,0,0.18) 0 5px, transparent 6px),
-        linear-gradient(135deg, transparent 60%, rgba(0,0,0,0.18) 60% 70%, transparent 70%);
-    }
-    .product .photo.placeholder::after {
-      content: 'תמונת מוצר';
-      position: absolute;
-      bottom: 30%;
-      font: 500 10px/1 var(--font-body);
-      color: rgba(0,0,0,0.42);
+      display: block;
     }
 
     .badge {
       position: absolute;
       top: 12px; right: 12px;
-      font-family: var(--font-brand);
+      font-family: 'Assistant', sans-serif;
       font-weight: 600;
       font-size: 11.5px;
       padding: 5px 12px;
@@ -363,29 +239,6 @@
     }
     .fav.on { color: var(--shangi-pink); }
 
-    .add-cart {
-      position: absolute;
-      left: 14px; right: 14px;
-      bottom: 14px;
-      background: var(--ink);
-      color: white;
-      border: 0;
-      border-radius: 999px;
-      padding: 11px;
-      font-family: var(--font-brand);
-      font-weight: 600;
-      font-size: 13px;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      direction: rtl;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.14);
-    }
-    .add-cart:hover { background: var(--shangi-pink); }
-    .add-cart::before {
-      content: '+';
-      font-size: 16px; font-weight: 700;
-    }
-
     .product .info {
       padding: 14px 14px 16px;
       display: flex; flex-direction: column; gap: 6px;
@@ -398,16 +251,15 @@
       font-size: 12px;
       display: flex; justify-content: flex-end; gap: 1px;
     }
-    .product .stars .empty { color: var(--rule); }
     .product .name {
-      font-family: var(--font-brand);
+      font-family: 'Assistant', sans-serif;
       font-weight: 600;
       font-size: 14.5px;
       color: var(--ink);
       line-height: 1.15;
     }
     .product .age {
-      font: 400 11.5px/1 var(--font-body);
+      font: 400 11.5px/1 'Assistant', sans-serif;
       color: var(--ink-3);
     }
     .product .price-row {
@@ -415,15 +267,10 @@
       margin-top: 4px;
     }
     .product .price {
-      font-family: var(--font-brand);
+      font-family: 'Assistant', sans-serif;
       font-weight: 700;
       font-size: 16px;
       color: var(--shangi-pink);
-    }
-    .product .price-old {
-      font: 500 12px/1 var(--font-body);
-      color: var(--ink-3);
-      text-decoration: line-through;
     }
 
     /* ============= TAB BAR ============= */
@@ -445,22 +292,14 @@
       display: flex; flex-direction: column; align-items: center; gap: 3px;
       background: transparent; border: 0; cursor: pointer;
       color: var(--ink-3);
-      font-family: var(--font-brand);
+      font-family: 'Assistant', sans-serif;
       font-weight: 500;
       font-size: 10.5px;
       padding: 4px;
     }
     .tab.active { color: var(--shangi-pink); }
 
-    /* ============= REAL PRODUCT IMAGE ============= */
-    .product .photo img {
-      mix-blend-mode: normal;
-    }
-    .product .photo.has-img::before,
-    .product .photo.has-img::after { content: none; display: none; }
-
-    /* ============= PRODUCT DETAIL VIEW ============= */
-    .view { display: block; }
+    /* ============= DETAIL VIEW ============= */
     .view.hidden { display: none; }
 
     .detail-bar {
@@ -476,7 +315,7 @@
       display: inline-flex; align-items: center; gap: 8px;
       background: transparent; border: 0; cursor: pointer;
       color: var(--ink);
-      font-family: var(--font-brand);
+      font-family: 'Assistant', sans-serif;
       font-weight: 600;
       font-size: 14px;
       padding: 6px 4px;
@@ -485,15 +324,14 @@
     .back-btn:hover { color: var(--shangi-pink); }
     .back-btn:hover svg { stroke: var(--shangi-pink); }
     .detail-bar .bar-mark {
-      font-family: var(--font-brand);
-      font-weight: 600;
+      font-family: 'Assistant', sans-serif;
+      font-weight: 700;
       font-size: 12px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--ink-3);
     }
 
-    /* gallery */
     .gallery {
       position: relative;
       margin: 14px 14px 0;
@@ -543,14 +381,14 @@
 
     .detail-body { padding: 22px 18px 24px; text-align: right; }
     .detail-kicker {
-      font: 600 11px/1 var(--font-body);
+      font: 600 11px/1 'Assistant', sans-serif;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--shangi-navy);
     }
     .detail-title {
       margin-top: 10px;
-      font-family: var(--font-brand);
+      font-family: 'Assistant', sans-serif;
       font-weight: 700;
       font-size: 26px;
       line-height: 1.15;
@@ -558,7 +396,7 @@
     }
     .detail-desc {
       margin-top: 14px;
-      font-family: var(--font-body);
+      font-family: 'Assistant', sans-serif;
       font-size: 14.5px;
       line-height: 1.75;
       color: var(--ink-2);
@@ -571,14 +409,14 @@
       display: flex; align-items: center; justify-content: space-between;
     }
     .detail-price {
-      font-family: var(--font-brand);
+      font-family: 'Assistant', sans-serif;
       font-weight: 700;
       font-size: 26px;
       color: var(--shangi-pink);
     }
     .detail-pieces { text-align: left; }
     .detail-pieces .pc-num {
-      font-family: var(--font-brand);
+      font-family: 'Assistant', sans-serif;
       font-weight: 700;
       font-size: 18px;
       color: var(--ink);
@@ -586,7 +424,7 @@
     .detail-pieces .pc-label {
       display: block;
       margin-top: 2px;
-      font: 500 10.5px/1 var(--font-body);
+      font: 500 10.5px/1 'Assistant', sans-serif;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--ink-3);
@@ -600,8 +438,8 @@
       color: white;
       border: 0;
       border-radius: 999px;
-      font-family: var(--font-brand);
-      font-weight: 600;
+      font-family: 'Assistant', sans-serif;
+      font-weight: 700;
       font-size: 15px;
       letter-spacing: 0.04em;
       text-decoration: none;
@@ -615,16 +453,16 @@
     .detail-note {
       margin-top: 12px;
       text-align: center;
-      font: 500 11.5px/1.4 var(--font-body);
+      font: 500 11.5px/1.4 'Assistant', sans-serif;
       color: var(--ink-3);
     }
   </style>
 </head>
-<body style="background-color: rgb(111, 165, 247)">
+<body>
 
 <div class="frame">
 
-  <!-- masthead -->
+  <!-- MASTHEAD -->
   <header class="masthead">
     <div class="nav-left">
       <button class="icon-btn" aria-label="Menu">
@@ -635,7 +473,7 @@
       </button>
     </div>
     <a href="#" class="brand" aria-label="SHANGI">
-      <img src="../../assets/logo-full.jpg" alt="SHANGI" />
+      <img src="new_logo_v2.jpg" alt="SHANGI" />
     </a>
     <div class="nav-right">
       <button class="icon-btn" aria-label="Cart">
@@ -646,14 +484,14 @@
   </header>
 
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" id="heroSection">
     <div class="bg">
       <div class="slide s1 active"></div>
       <div class="slide s2"></div>
       <div class="slide s3"></div>
     </div>
     <div class="scrim"></div>
-    <div class="content" style="opacity: 6">
+    <div class="content">
       <h1>
         <span>Play</span>
         <span>with</span>
@@ -664,7 +502,7 @@
   </section>
 
   <!-- SECTION HEAD -->
-  <div class="sec-head">
+  <div class="sec-head" id="secHead">
     <div class="sec-pill">
       <span class="gift" aria-hidden="true">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F7941D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
@@ -677,10 +515,9 @@
   <!-- PRODUCT GRID -->
   <div class="grid" id="grid">
 
-    <!-- 1. Sandwich Kit -->
     <a class="product tone-sky" href="#" data-id="sandwich">
-      <div class="photo has-img">
-        <img src="../../assets/Sand 1.JPG" alt="ערכת כריכים" />
+      <div class="photo">
+        <img src="Sand_1.JPG" alt="ערכת כריכים" />
         <span class="badge new">חדש</span>
         <button class="fav" aria-label="favorite" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('on')">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-9-9a5 5 0 019-3 5 5 0 019 3c-2 4.5-9 9-9 9z"/></svg>
@@ -690,16 +527,13 @@
         <div class="stars">★★★★★</div>
         <div class="name">ערכת כריכים</div>
         <div class="age">28 חלקים</div>
-        <div class="price-row">
-          <span class="price">₪69</span>
-        </div>
+        <div class="price-row"><span class="price">₪69</span></div>
       </div>
     </a>
 
-    <!-- 2. Pasta Kit -->
     <a class="product tone-pink" href="#" data-id="pasta">
-      <div class="photo has-img">
-        <img src="../../assets/Pasta2.JPG" alt="ערכת פסטה" />
+      <div class="photo">
+        <img src="Pasta2.JPG" alt="ערכת פסטה" />
         <span class="badge sale">מבצע</span>
         <button class="fav on" aria-label="favorite" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('on')">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-4.5-9-9a5 5 0 019-3 5 5 0 019 3c-2 4.5-9 9-9 9z"/></svg>
@@ -709,16 +543,13 @@
         <div class="stars">★★★★★</div>
         <div class="name">ערכת פסטה</div>
         <div class="age">49 חלקים</div>
-        <div class="price-row">
-          <span class="price">₪69</span>
-        </div>
+        <div class="price-row"><span class="price">₪69</span></div>
       </div>
     </a>
 
-    <!-- 3. Donuts Box -->
     <a class="product tone-lilac" href="#" data-id="donuts" style="grid-column: 1 / -1;">
-      <div class="photo has-img" style="aspect-ratio: 2 / 1.1;">
-        <img src="../../assets/photo-donuts.jpg" alt="מארז דונאטס" />
+      <div class="photo" style="aspect-ratio: 2 / 1.1;">
+        <img src="photo-donuts.jpg" alt="מארז דונאטס" />
         <span class="badge new">חדש</span>
         <button class="fav" aria-label="favorite" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('on')">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-9-9a5 5 0 019-3 5 5 0 019 3c-2 4.5-9 9-9 9z"/></svg>
@@ -728,36 +559,17 @@
         <div class="stars">★★★★★</div>
         <div class="name">מארז דונאטס</div>
         <div class="age">6 דונאטס · 8 ציפויים</div>
-        <div class="price-row">
-          <span class="price">₪230</span>
-        </div>
+        <div class="price-row"><span class="price">₪230</span></div>
       </div>
     </a>
 
   </div>
 
-  <!-- ============= TWEAKS PANEL ============= -->
-  <div id="tweaksPanel" aria-hidden="true">
-    <div class="tw-head">
-      <span class="tw-title">Tweaks</span>
-      <button class="tw-close" id="tweaksClose" type="button" aria-label="Close">×</button>
-    </div>
-    <div class="tw-row">
-      <div class="tw-label">
-        <span>Title drop shadow</span>
-        <span class="tw-val" id="shadowVal">1.0</span>
-      </div>
-      <input type="range" id="shadowSlider" min="0" max="2.5" step="0.05" />
-    </div>
-  </div>
-
-  <!-- ============= PRODUCT DETAIL VIEW ============= -->
+  <!-- PRODUCT DETAIL VIEW -->
   <section class="view hidden" id="detailView" aria-hidden="true">
     <div class="detail-bar">
       <button class="back-btn" id="backBtn" type="button">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <polyline points="9 6 15 12 9 18"></polyline>
-        </svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg>
         <span>חזרה</span>
       </button>
       <span class="bar-mark">SHANGI</span>
@@ -769,7 +581,7 @@
     </div>
 
     <div class="detail-body">
-      <div class="detail-kicker" id="dKicker">Hand-rolled · Felt</div>
+      <div class="detail-kicker">Hand-rolled · Felt</div>
       <h1 class="detail-title" id="dTitle"></h1>
       <p class="detail-desc" id="dDesc"></p>
 
@@ -781,12 +593,12 @@
         </div>
       </div>
 
-      <a href="#" class="purchase-btn" id="purchaseBtn">הוסיפי לסל · Purchase</a>
+      <a href="#" class="purchase-btn">הוסיפי לסל · Purchase</a>
       <p class="detail-note">משלוח חינם בהזמנה מעל ₪200</p>
     </div>
   </section>
 
-  <!-- tab bar -->
+  <!-- TAB BAR -->
   <nav class="tabbar">
     <button class="tab active" aria-label="Home">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
@@ -810,7 +622,7 @@
 
 <script>
 (function(){
-  /* hero slideshow */
+  /* Hero slideshow */
   var slides = document.querySelectorAll('.hero .bg .slide');
   if (slides.length >= 2) {
     var i = 0;
@@ -821,38 +633,36 @@
     }, 7000);
   }
 
-  /* product data */
+  /* Product data — uses only the 3 product photos you provided */
   var PRODUCTS = {
     sandwich: {
       title: 'ערכת כריכים',
       desc:  'תנו לילדים להכין את הכריכים האהובים עליהם והחלק הטוב, אין פירורים. בערכה ישנם סוגי לחם שונים, ירקות ומיני ממרחים.',
       price: '₪69',
       pieces: '28',
-      images: ['../../assets/Sand 1.JPG', '../../assets/photo-sandwich.jpg', '../../assets/main_page_2.jpg']
+      images: ['Sand_1.JPG']
     },
     pasta: {
       title: 'ערכת פסטה',
       desc:  'כל ילד או ילדה ירגישו כמו שף של מסעדה ממש כמו באיטליה. הערכה מכילה סוגי שונים של פסטות, רטבים ומיני תוספות.',
       price: '₪69',
       pieces: '49',
-      images: ['../../assets/Pasta2.JPG', '../../assets/photo-pasta.jpg', '../../assets/main_page_1.jpg']
+      images: ['Pasta2.JPG']
     },
     donuts: {
       title: 'מארז דונאטס',
       desc:  'המארז מכיל 4 דונאטס וניל, 2 דונאטס שוקולד, 8 ציפויים שונים. תנו לילדים ליהנות ממשחק סוציו־דרמטי.',
       price: '₪230',
       pieces: '14',
-      images: ['../../assets/photo-donuts.jpg', '../../assets/main_page_3.jpg', '../../assets/photo-donuts.jpg']
+      images: ['photo-donuts.jpg']
     }
   };
 
-  /* refs */
-  var frame      = document.querySelector('.frame');
   var detailView = document.getElementById('detailView');
-  var mainEls    = [
+  var mainEls = [
     document.querySelector('.masthead'),
-    document.querySelector('.hero'),
-    document.querySelector('.sec-head'),
+    document.getElementById('heroSection'),
+    document.getElementById('secHead'),
     document.getElementById('grid')
   ];
   var dTitle  = document.getElementById('dTitle');
@@ -872,7 +682,7 @@
     track.innerHTML = p.images.map(function(src){
       return '<div class="gallery-slide"><img src="' + src + '" alt="' + p.title + '" /></div>';
     }).join('');
-    dots.innerHTML  = p.images.map(function(_, i){
+    dots.innerHTML = p.images.map(function(_, i){
       return '<span class="' + (i === 0 ? 'active' : '') + '"></span>';
     }).join('');
     track.scrollLeft = 0;
@@ -910,55 +720,6 @@
   document.addEventListener('keydown', function(e){
     if (e.key === 'Escape' && !detailView.classList.contains('hidden')) closeDetail();
   });
-
-  /* ===== TWEAKS / EDIT MODE ===== */
-  var TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-    "titleShadow": 0.6
-  }/*EDITMODE-END*/;
-
-  var tweaks       = Object.assign({}, TWEAK_DEFAULTS);
-  var tweaksPanel  = document.getElementById('tweaksPanel');
-  var tweaksClose  = document.getElementById('tweaksClose');
-  var shadowSlider = document.getElementById('shadowSlider');
-  var shadowVal    = document.getElementById('shadowVal');
-
-  function applyTweaks(){
-    document.documentElement.style.setProperty('--title-shadow', String(tweaks.titleShadow));
-    shadowSlider.value = tweaks.titleShadow;
-    shadowVal.textContent = Number(tweaks.titleShadow).toFixed(2);
-  }
-  applyTweaks();
-
-  function persist(patch){
-    Object.assign(tweaks, patch);
-    applyTweaks();
-    try {
-      window.parent.postMessage({ type: '__edit_mode_set_keys', edits: patch }, '*');
-    } catch(_){}
-  }
-
-  shadowSlider.addEventListener('input', function(){
-    persist({ titleShadow: parseFloat(shadowSlider.value) });
-  });
-
-  tweaksClose.addEventListener('click', function(){
-    tweaksPanel.classList.remove('open');
-    tweaksPanel.setAttribute('aria-hidden', 'true');
-    try { window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*'); } catch(_){}
-  });
-
-  window.addEventListener('message', function(e){
-    var d = e && e.data; if (!d) return;
-    if (d.type === '__activate_edit_mode') {
-      tweaksPanel.classList.add('open');
-      tweaksPanel.setAttribute('aria-hidden', 'false');
-    } else if (d.type === '__deactivate_edit_mode') {
-      tweaksPanel.classList.remove('open');
-      tweaksPanel.setAttribute('aria-hidden', 'true');
-    }
-  });
-
-  try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch(_){}
 })();
 </script>
 </body>
